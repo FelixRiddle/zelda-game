@@ -3,6 +3,7 @@ from settings import *
 from tile import Tile
 from player import Player
 
+
 class Level:
     def __init__(self):
         # Get the display surface
@@ -11,18 +12,20 @@ class Level:
         # Sprite group setup
         self.visible_sprites = pygame.sprite.Group()
         self.obstacle_sprites = pygame.sprite.Group()
-        
+
         # Sprite setup
         self.create_map()
-    
+
     def create_map(self):
         for row_index, row in enumerate(WORLD_MAP):
             for col_index, col in enumerate(row):
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
-                
+
                 if col == "x":
-                    tile = Tile((x, y), [self.visible_sprites])
+                    tile = Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
+                elif col == "p":
+                    tile = Player((x, y), [self.visible_sprites])
 
     def run(self):
         # Update and draw the game
